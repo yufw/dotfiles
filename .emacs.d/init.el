@@ -13,9 +13,13 @@
 
 ;;(setq-default solarized-italic nil)
 ;;(add-to-list 'custom-theme-load-path "~/.emacs.d/site-lisp/twilight-theme")
+(load-theme 'solarized-light t)
 ;;(load-theme 'solarized-light t)
 
-(menu-bar-mode -1)
+(when (not window-system)
+  (menu-bar-mode -1)
+  (setq frame-background-mode 'dark))
+
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 
@@ -31,6 +35,7 @@
 (column-number-mode 1)
 (show-paren-mode 1)
 (delete-selection-mode 1)
+(global-auto-revert-mode 1)
 
 (ido-mode 1)
 (setq ido-enable-flex-matching t)
@@ -57,17 +62,24 @@
   (define-key c-mode-base-map "\C-m" 'c-context-line-break))
 (add-hook 'c-initialization-hook 'my-c-initialization-hook)
 
-;; Font
-;;(set-frame-font "Fira Code-11")
-;;(set-frame-font "Ubuntu Mono-13")
-(set-frame-font "Consolas-12")
-(set-fontset-font "fontset-default" 'han '("SimSun" . "unicode-bmp"))
-(set-fontset-font "fontset-default" 'cjk-misc '("SimSun" . "unicode-bmp"))
-
+;; evil
 (evil-mode 1)
 (global-undo-tree-mode)
 (evil-set-initial-state 'eww-mode 'emacs)
 (evil-set-initial-state 'dired-mode 'emacs)
+
+;; Font
+(set-frame-font "Menlo-16")
+;;(set-frame-font "Consolas-12")
+;;(set-fontset-font "fontset-default" 'han '("SimSun" . "unicode-bmp"))
+;;(set-fontset-font "fontset-default" 'cjk-misc '("Source Han Sans CN" . "unicode-bmp"))
+
+
+;; Ag
+(setq ag-reuse-buffers t)
+
+;; Magit
+(global-set-key (kbd "C-x g") 'magit-status)
 
 (smex-initialize)
 (global-set-key (kbd "M-x") 'smex)
@@ -97,10 +109,11 @@
 (add-hook 'go-mode-hook #'lsp)
 (evil-define-key 'normal go-mode-map (kbd "g d") 'lsp-find-definition)
 
+(add-hook 'python-mode-hook #'lsp)
+
 (setq company-minimum-prefix-length 1)
 (setq company-idle-delay 0)
 
-;;(setq frame-background-mode 'light)
 
 (xterm-mouse-mode)
 (put 'downcase-region 'disabled nil)
@@ -121,10 +134,11 @@
  '(global-undo-tree-mode t)
  '(indicate-buffer-boundaries t)
  '(js-indent-level 2)
+ '(lsp-headerline-breadcrumb-enable nil)
  '(magit-section-visibility-indicator nil)
  '(make-backup-files nil)
  '(package-selected-packages
-   '(solarized-theme powershell csharp-mode diff-hl undo-tree evil magit smex))
+   '(solarized-theme undo-tree lsp-mode eglot evil bison-mode flycheck company projectile go-mode magit smex ag))
  '(x-underline-at-descent-line t))
 
 (custom-set-faces
