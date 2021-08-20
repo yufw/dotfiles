@@ -52,11 +52,19 @@
 
 ;; evil
 (evil-mode 1)
-(global-undo-tree-mode)
-(evil-set-initial-state 'eww-mode 'emacs)
-(evil-set-initial-state 'dired-mode 'emacs)
-(evil-set-initial-state 'flymake-diagnostics-buffer-mode 'emacs)
-(evil-set-initial-state 'xref--xref-buffer-mode 'emacs)
+
+(setq evil-emacs-state-modes
+      (append evil-emacs-state-modes evil-motion-state-modes))
+(setq evil-motion-state-modes nil)
+
+(dolist (mode '(dired-mode eww-mode flymake-diagnostics-buffer-mode xref--xref-buffer-mode))
+  (evil-set-initial-state mode 'emacs))
+
+;; undo tree
+;; enable if buffer is not read-only
+(add-hook 'after-change-major-mode-hook (lambda()
+                                 (unless buffer-read-only
+                                   (undo-tree-mode))))
 
 ;; Font
 (cond ((equal system-type 'gnu/linux)
@@ -122,7 +130,9 @@
  '(magit-section-visibility-indicator nil)
  '(make-backup-files nil)
  '(package-selected-packages
-   '(yaml-mode lsp-mode project orderless vertico google-c-style diff-hl undo-tree evil company go-mode magit)))
+   '(yaml-mode lsp-mode project orderless vertico google-c-style diff-hl undo-tree evil company go-mode magit))
+ '(vc-follow-symlinks t)
+ '(x-underline-at-descent-line t))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
