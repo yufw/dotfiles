@@ -5,3 +5,4 @@ set ttimeoutlen=0
 set hlsearch
 set ignorecase
 set smartcase
+set mouse=a

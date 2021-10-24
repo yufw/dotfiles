@@ -8,7 +8,7 @@
 
 (require 'package)
 (add-to-list 'package-archives
-             '("melpa" . "https://mirrors.ustc.edu.cn/elpa/melpa/") t)
+             '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
 
 (when (not window-system)
@@ -97,10 +97,6 @@
 
 (when (window-system)
   (global-diff-hl-mode))
-
-(add-hook 'go-mode-hook (lambda ()
-                          (set (make-local-variable 'company-backends) '(company-go))
-                          (company-mode)))
 
 (add-hook 'go-mode-hook #'lsp)
 
