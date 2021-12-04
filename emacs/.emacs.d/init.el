@@ -57,7 +57,7 @@
       (append evil-emacs-state-modes evil-motion-state-modes))
 (setq evil-motion-state-modes nil)
 
-(dolist (mode '(dired-mode eww-mode flymake-diagnostics-buffer-mode xref--xref-buffer-mode))
+(dolist (mode '(dired-mode eww-mode eww-bookmark-mode flymake-diagnostics-buffer-mode xref--xref-buffer-mode))
   (evil-set-initial-state mode 'emacs))
 
 ;; undo tree
@@ -110,8 +110,6 @@
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
 
-(when (display-graphic-p)
-  (set-face-attribute 'region nil :extend t :background "LightGoldenrod2"))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -126,7 +124,7 @@
  '(magit-section-visibility-indicator nil)
  '(make-backup-files nil)
  '(package-selected-packages
-   '(yaml-mode lsp-mode project orderless vertico google-c-style diff-hl undo-tree evil company go-mode magit))
+   '(yaml-mode lsp-mode project orderless vertico google-c-style diff-hl undo-tree evil company go-mode magit pyvenv))
  '(vc-follow-symlinks t)
  '(x-underline-at-descent-line t))
 
