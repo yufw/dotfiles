@@ -17,8 +17,10 @@
 (unless (eq window-system 'ns)
   (menu-bar-mode -1))
 
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
+(when (fboundp 'tool-bar-mode)
+  (tool-bar-mode -1))
+(when (fboundp 'scroll-bar-mode)
+  (scroll-bar-mode -1))
 
 (blink-cursor-mode -1)
 
@@ -67,14 +69,15 @@
                                    (undo-tree-mode))))
 
 ;; Font
-(cond ((equal system-type 'gnu/linux)
-       (set-frame-font "DejaVu Sans Mono-12")
-       (set-fontset-font t 'symbol "Noto Color Emoji"))
-      ((equal system-type 'darwin)
-       (set-frame-font "Menlo-16"))
-      ((equal system-type 'windows-nt)
-       (set-frame-font "Consolas-13")
-       (set-fontset-font "fontset-default" 'han '("SimSun" . "unicode-bmp"))))
+(when (window-system)
+  (cond ((equal system-type 'gnu/linux)
+         (set-frame-font "DejaVu Sans Mono-12")
+         (set-fontset-font t 'symbol "Noto Color Emoji"))
+        ((equal system-type 'darwin)
+         (set-frame-font "Menlo-16"))
+        ((equal system-type 'windows-nt)
+         (set-frame-font "Consolas-13")
+         (set-fontset-font "fontset-default" 'han '("SimSun" . "unicode-bmp")))))
 
 (vertico-mode)
 
@@ -105,7 +108,10 @@
 (setq company-minimum-prefix-length 1)
 (setq company-idle-delay 0)
 
-(xterm-mouse-mode)
+(unless (display-graphic-p)
+  (xterm-mouse-mode)
+  (global-set-key (kbd "<mouse-4>") 'scroll-down-line)
+  (global-set-key (kbd "<mouse-5>") 'scroll-up-line))
 
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
