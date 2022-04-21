@@ -52,16 +52,6 @@
 (setq lsp-clients-clangd-args
       '("--header-insertion=never"))
 
-;; evil
-(evil-mode 1)
-
-(setq evil-emacs-state-modes
-      (append evil-emacs-state-modes evil-motion-state-modes))
-(setq evil-motion-state-modes nil)
-
-(dolist (mode '(dired-mode eww-mode eww-bookmark-mode flymake-diagnostics-buffer-mode xref--xref-buffer-mode))
-  (evil-set-initial-state mode 'emacs))
-
 ;; undo tree
 ;; enable if buffer is not read-only
 (add-hook 'after-change-major-mode-hook (lambda()
@@ -123,14 +113,13 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(confirm-kill-emacs 'y-or-n-p)
- '(evil-undo-system 'undo-tree)
  '(indicate-buffer-boundaries t)
  '(js-indent-level 2)
  '(lsp-headerline-breadcrumb-enable nil)
  '(magit-section-visibility-indicator nil)
  '(make-backup-files nil)
  '(package-selected-packages
-   '(yaml-mode lsp-mode project orderless vertico google-c-style diff-hl undo-tree evil company go-mode magit pyvenv))
+   '(yaml-mode lsp-mode project orderless vertico google-c-style diff-hl undo-tree company go-mode magit pyvenv))
  '(vc-follow-symlinks t)
  '(x-underline-at-descent-line t))
 
