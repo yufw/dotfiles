@@ -58,6 +58,8 @@
                                  (unless buffer-read-only
                                    (undo-tree-mode))))
 
+(setq undo-tree-auto-save-history nil)
+
 ;; Font
 (when (window-system)
   (cond ((equal system-type 'gnu/linux)
@@ -92,6 +94,8 @@
   (global-diff-hl-mode))
 
 (add-hook 'go-mode-hook #'lsp)
+(add-hook 'go-mode-hook (lambda()
+                          (define-key go-mode-map (kbd "C-c C-j") 'lsp-find-definition)))
 
 (add-hook 'python-mode-hook #'lsp)
 
