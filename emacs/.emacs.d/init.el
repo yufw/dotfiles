@@ -99,6 +99,8 @@
 
 (add-hook 'python-mode-hook #'lsp)
 
+(add-hook 'js-mode-hook #'lsp)
+
 (setq company-minimum-prefix-length 1)
 (setq company-idle-delay 0)
 
@@ -110,6 +112,7 @@
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
 
+(global-unset-key (kbd "C-z"))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -123,9 +126,17 @@
  '(magit-section-visibility-indicator nil)
  '(make-backup-files nil)
  '(package-selected-packages
-   '(yaml-mode lsp-mode project orderless vertico google-c-style diff-hl undo-tree company go-mode magit pyvenv))
+   '(lsp-mode magit zenburn-theme markdown-mode yaml-mode project orderless vertico google-c-style diff-hl undo-tree company go-mode pyvenv))
  '(vc-follow-symlinks t)
  '(x-underline-at-descent-line t))
+
+(load-theme 'zenburn t)
+
+(let ((custom--inhibit-theme-enable nil))
+  (zenburn-with-color-variables
+    (custom-theme-set-faces
+     'zenburn
+     `(vertico-current ((t (:background ,zenburn-bg-05 :foreground ,zenburn-yellow :weight bold)))))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
